@@ -5,12 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-@ComponentScan(basePackages = {"service","dao","utilidades"})
+@EnableJpaRepositories(basePackages = {"dao"},entityManagerFactoryRef = "factory",transactionManagerRef = "txManager")
+@ComponentScan(basePackages = {"service","utilidades"})
 @PropertySource("classpath:config/application.properties")
 @EnableTransactionManagement
 @Configuration

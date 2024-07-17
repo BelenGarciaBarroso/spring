@@ -5,17 +5,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-@ComponentScan(basePackages = {"service","dao","utilidades"})
+@EnableJpaRepositories(basePackages = {"dao"},entityManagerFactoryRef = "factory",transactionManagerRef = "txManager")
+@ComponentScan(basePackages = {"service","utilidades"})
 @PropertySource("classpath:config/application.properties")
 @EnableTransactionManagement
 @Configuration
 public class ServiceConfig {
-	
+
 	@Value("${driver}")
 	String driver;
 	@Value("${url}")
@@ -47,7 +49,7 @@ public class ServiceConfig {
 	public LocalContainerEntityManagerFactoryBean factory(DriverManagerDataSource dataSource, HibernateJpaVendorAdapter adapter) {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource);
-		factory.setPackagesToScan("entity");
+		factory.setPackagesToScan("entities");
 		factory.setJpaVendorAdapter(adapter);
 		return factory;
 	} 
@@ -60,5 +62,6 @@ public class ServiceConfig {
 		return manager;
 	}
 	
-
+	
+		
 }
