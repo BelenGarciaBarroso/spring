@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import model.ClienteDto;
 import model.LibroDto;
 import model.TemaDto;
+import model.VentaDto;
 import service.ClientesService;
 import service.LibrosService;
 
@@ -78,5 +79,12 @@ public class LibreriaController {
 	@GetMapping(value="temaTitulo", produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody TemaDto temaPorTitulo(@RequestParam("titulo") String titulo) {
 		return librosService.buscarTemaTituloLibro(titulo);
+	}
+	
+	
+	@GetMapping(value="misCompras")
+	public String misCompras(Model model, @SessionAttribute("usuario") String usuario ) {
+		model.addAttribute("compras", clientesService.ventasCliente(usuario));
+		return "compras";
 	}
 }
