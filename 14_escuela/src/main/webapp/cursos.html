@@ -1,0 +1,47 @@
+  
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<!--  <b th:text="${session.usuario}"></b> -->
+	<center>
+		Introduce Curso:
+		<select id="cursoSel" >
+			<option value="0">-Todos-</option>
+			<option th:each="t:${cursos}" th:value="${t.idCurso}" th:text="${t.nombre}"></option>					
+		</select>
+		<br><br>
+		
+		<h2>Alumnos Matriculados</h2>
+		<div id="tbAlumnos">
+		
+		</div>
+	</center>
+	<script type="text/javascript">
+		$("#cursoSel").change(function(){
+			var url="buscarAlumnosPorCurso";
+			var params={"idCurso":$("#cursoSel").val()};
+			
+			gestionarPeticion(url,params);
+			
+		});
+	
+	function gestionarPeticion(url,params){
+		alert("Aquí");
+		$.get(url,params,function(data){
+			
+			var tabla="<table border='1'><tr><th>Usuario</th><th>Nombre</th><th>Edad</th><th></th></tr>";
+			$.each(data,function(i,p){
+				tabla+="<tr><td>"+p.usuario+"</td><td>"+p.nombre+"</td><td>"+p.edad+"</td></tr>";
+			});
+			tabla+="</table>";
+			$("#tbAlumnos").html(tabla);
+		});
+	}	
+	</script>
+</body>
+</html>
