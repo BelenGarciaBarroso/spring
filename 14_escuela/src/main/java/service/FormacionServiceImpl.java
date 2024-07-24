@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dao.AlumnosDao;
 import dao.CursosDao;
+import entities.Curso;
 import model.AlumnoDto;
 import model.CursoDto;
 import utilidades.Mapeador;
@@ -38,4 +39,14 @@ public class FormacionServiceImpl implements FormacionService {
 				.toList();
 	}
 
+	@Override
+	public boolean altaCurso(CursoDto curso) {
+		if(cursosDao.findByNombreAndFechaInicio(curso.getNombre(), curso.getFechaInicio())==null) {//si no encuentra cliente con ese usuario, lo guarda
+			cursosDao.save(mapeador.cursoDtoToEntity(curso));
+			return true;
+		}
+		return false;
+	}
+
+	
 }
