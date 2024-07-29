@@ -1,11 +1,12 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class MatriculaPK {
+public class MatriculaPK implements Serializable {
 	
 	private String usuario;
 	private int idCurso;

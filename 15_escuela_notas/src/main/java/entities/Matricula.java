@@ -8,7 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="matriuclas")
+@Table(name="matriculas")
 public class Matricula {
 	
 	@EmbeddedId
@@ -20,7 +20,7 @@ public class Matricula {
 	private Curso curso;
 	
 	@ManyToOne
-	@JoinColumn(name="usuario", referencedColumnName="usuario")
+	@JoinColumn(name="usuario", referencedColumnName="usuario", updatable = false, insertable = false)
 	private Alumno alumno;
 	
 	public Matricula(MatriculaPK pk, double nota, Curso cursos, Alumno alumnos) {
@@ -30,6 +30,14 @@ public class Matricula {
 		this.curso = curso;
 		this.alumno = alumno;
 	}
+	
+	
+
+	public Matricula() {
+		
+	}
+
+
 
 	public MatriculaPK getPk() {
 		return pk;

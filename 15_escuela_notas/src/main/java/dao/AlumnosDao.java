@@ -10,7 +10,7 @@ import entities.Alumno;
 
 public interface AlumnosDao extends JpaRepository<Alumno, String> {
 
-	@Query("select distint(a) from Alumno a join a.matriculas m where m.curso.idCurso=?1")
-	//@Query("select distint(a) from Alumno a join a.matriculas m where m.matriculaPK.idCurso=?1")
-	List<Alumno> findByIdCurso(int idCuros);
+	@Query("select distinct(a) from Alumno a join a.matriculas m where m.curso.idCurso=?1")
+	//@Query("select distinct(a) from Alumno a join a.matriculas m where m.matriculaPK.idCurso=?1")
+	List<Alumno> findByIdCurso(int idCursos);
 }
