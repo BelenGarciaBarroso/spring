@@ -1,0 +1,61 @@
+  
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<!--  <b th:text="${session.usuario}"></b> -->
+	<center>
+		Introduce Curso:
+		<select id="cursoSel" >
+			<option value="0">-Todos-</option>
+			<option th:each="t:${cursos}" th:value="${t.idCurso}" th:text="${t.nombre}"></option>					
+		</select>
+		<br><br>
+		
+		<h2>Alumnos Matriculados</h2>
+		<div id="tbAlumnos">
+		
+		</div>
+		<div id="media">
+		
+		</div>
+		<br><br>
+	<a href="toInicio">Volver</a>
+	</center>
+	<script type="text/javascript">
+		$("#cursoSel").change(function(){
+			var url="buscarAlumnosPorCurso";
+			var urlMedia="mediaCurso";
+			var params={"idCurso":$("#cursoSel").val()};
+			
+			gestionarPeticion(url,urlMedia,params);
+			
+		});
+	
+	function gestionarPeticion(url,urlMedia, params){
+		$.get(url,params,function(data){
+			
+			var tabla="<table border='1'><tr><th>Usuario</th><th>Nombre</th><th>Edad</th><th>Nota</th></tr>";
+			$.each(data,function(i,p){
+				tabla+="<tr><td>"+p.alumnoDto.usuario+"</td><td>"+p.alumnoDto.nombre+"</td><td>"+p.alumnoDto.edad+"</td><td>"+p.nota+"</td></tr>";
+			});
+			tabla+="</table>";
+			$("#tbAlumnos").html(tabla);
+		});
+		
+		$.get(urlMedia,params,function(data){
+			$("#media").html("<h3>Nota media: "+data+"</h3>")
+		});
+			
+	}	
+	
+	
+	</script>
+	
+	
+</body>
+</html>
