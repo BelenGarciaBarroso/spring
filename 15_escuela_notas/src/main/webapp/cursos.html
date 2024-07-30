@@ -20,32 +20,42 @@
 		<div id="tbAlumnos">
 		
 		</div>
+		<div id="media">
+		
+		</div>
+		<br><br>
+	<a href="toInicio">Volver</a>
 	</center>
 	<script type="text/javascript">
 		$("#cursoSel").change(function(){
 			var url="buscarAlumnosPorCurso";
+			var urlMedia="mediaCurso";
 			var params={"idCurso":$("#cursoSel").val()};
 			
-			gestionarPeticion(url,params);
+			gestionarPeticion(url,urlMedia,params);
 			
 		});
 	
-	function gestionarPeticion(url,params){
+	function gestionarPeticion(url,urlMedia, params){
 		$.get(url,params,function(data){
 			
-			var tabla="<table border='1'><tr><th>Usuario</th><th>Nombre</th><th>Edad</th><th></th></tr>";
+			var tabla="<table border='1'><tr><th>Usuario</th><th>Nombre</th><th>Edad</th><th>Nota</th></tr>";
 			$.each(data,function(i,p){
-				tabla+="<tr><td>"+p.usuario+"</td><td>"+p.nombre+"</td><td>"+p.edad+"</td></tr>";
+				tabla+="<tr><td>"+p.alumnoDto.usuario+"</td><td>"+p.alumnoDto.nombre+"</td><td>"+p.alumnoDto.edad+"</td><td>"+p.nota+"</td></tr>";
 			});
 			tabla+="</table>";
 			$("#tbAlumnos").html(tabla);
 		});
+		
+		$.get(urlMedia,params,function(data){
+			$("#media").html("<h3>Nota media: "+data+"</h3>")
+		});
+			
 	}	
 	
 	
 	</script>
 	
-	<br><br>
-	<a href="toInicio">Volver</a>
+	
 </body>
 </html>

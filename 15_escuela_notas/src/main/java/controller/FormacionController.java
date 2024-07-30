@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import model.AlumnoDto;
+import model.AlumnoMatriculadoDto;
 import model.CursoDto;
 import service.FormacionService;
 
@@ -33,7 +33,7 @@ public class FormacionController {
 	}
 	
 	@GetMapping (value="buscarAlumnosPorCurso", produces=MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<AlumnoDto> alumnosPorCurso (@RequestParam("idCurso") int idCurso) {
+	public @ResponseBody List<AlumnoMatriculadoDto> alumnosPorCurso (@RequestParam("idCurso") int idCurso) {
 		return formacionService.bucarAlumnoMatriculado(idCurso);
 	}
 	
@@ -41,6 +41,11 @@ public class FormacionController {
 	//@PostMapping(value="altaCurso",produces=MediaType.TEXT_PLAIN_VALUE)
 	public @ResponseBody String altaCurso (@ModelAttribute CursoDto curso) {
 		return String.valueOf(formacionService.altaCurso(curso));
+	}
+	
+	@GetMapping (value="mediaCurso",  produces=MediaType.TEXT_PLAIN_VALUE)
+	public @ResponseBody String  notaMediaCurso(@RequestParam("idCurso") int idCurso) {
+		return String.valueOf(formacionService.notaMediaCurso(idCurso));
 	}
 
 }

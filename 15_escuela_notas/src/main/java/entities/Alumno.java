@@ -89,7 +89,13 @@ public class Alumno {
 		this.edad = edad;
 	}
 
+	public Set<Matricula> getMatriculas() {
+		return matriculas;
+	}
 
+	public void setMatriculas(Set<Matricula> matriculas) {
+		this.matriculas = matriculas;
+	}
 	
 	
 	
